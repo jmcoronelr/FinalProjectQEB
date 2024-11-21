@@ -17,37 +17,50 @@ public class TransferFundsPage {
     private By amountResultLocator = By.id("amountResult");
     private By sourceAccountResultLocator = By.id("fromAccountIdResult");
     private By destinationAccountResultLocator = By.id("toAccountIdResult");
+
     public TransferFundsPage(WebDriver driver) {
         this.driver = driver;
     }
+
     public void enterAmount(String amount) {
         driver.findElement(amountLocator).sendKeys(amount);
     }
+
     public void enterSourceAccount(String sourceAccount) {
         driver.findElement(sourceAccountLocator).sendKeys(sourceAccount);
     }
+
     public void enterDestinationAccount(String destinationAccount) throws InterruptedException {
         Thread.sleep(1000);
         driver.findElement(destinationAccountLocator).sendKeys(destinationAccount);
     }
+
     public void clickTransferButton() {
         driver.findElement(transferButtonLocator).click();
     }
+
     public WebDriver getDriver() {
         return this.driver;
     }
-    public String getResultAmount() {
+
+    public String getResultAmount() {//Get the amount from the confirmation message
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         wait.until(ExpectedConditions.visibilityOfElementLocated(amountResultLocator));
         String amountWithoutFormat = driver.findElement(amountResultLocator).getText();
         return formatCurrency(amountWithoutFormat);
     }
+
+    // Get the number of the source account from the confirmation message
     public String getSourceAccountResult() {
         return driver.findElement(sourceAccountResultLocator).getText();
     }
+
+    //Get the number of the destination account from the confirmation message
     public String getDestinationAccountResult() {
         return driver.findElement(destinationAccountResultLocator).getText();
     }
+
+    // Parse the currency
     private String formatCurrency(String currency) {
         // Remove the dollar sign
         String withoutSymbol = currency.replace("$", "");
@@ -58,18 +71,23 @@ public class TransferFundsPage {
         // Convert to integer and return as string
         return String.valueOf((int) value);
     }
-    public List<Integer> getAvailableAccountsFromSourceDropdownMenu(){
-        List<WebElement> accounts = driver.findElements(sourceAccountResultLocator);
-        List<Integer> accountNumbers = new ArrayList<Integer>();
-        for (WebElement account : accounts) {
-            try {
-                // Locate the anchor tag within the first <td> of the row
-                WebElement accountNumberElement = account.findElement(By.cssSelector("option"));
-                String accountNumberText = accountNumberElement.getText();
-                accountNumbers.add(Integer.parseInt(accountNumberText));
-            } catch()
 
-        return accountNumbers;
+    // Extract accounts from select element (dropdown Menu)
+    private List<String> getIntegersFromDropdownMenu(By AccountLocator) {
+        WebElement accountNumbersSelect = driver.findElement(AccountLocator);
+        List<WebElement> accountsOptions = accountNumbersSelect.findElements(By.tagName("option"));
+        List<String> accountNumbersList = new ArrayList<>();
+        for (WebElement accountNumber : accountsOptions) {
+            accountNumbersList.add(accountNumber.getText());
+        }
+        return accountNumbersList;
     }
+
+    public List<String> getAccountNumbersfromDestinationDropdownMenu() {
+        return getIntegersFromDropdownMenu(destinationAccountLocator);
+    }
+
+    public List<String> getAccountNumbersfromSourceDropdownMenu() {
+        return getIntegersFromDropdownMenu(sourceAccountLocator);
     }
 }

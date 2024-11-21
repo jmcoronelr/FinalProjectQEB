@@ -26,46 +26,60 @@ public class RegisterPage {
     public void setUserNameLocator(String username) {
         driver.findElement(userNameLocator).sendKeys(username);
     }
+
     public void setPasswordLocator(String password) {
         driver.findElement(passwordLocator).sendKeys(password);
     }
+
     public OverviewPage clickLoginButton() {
         driver.findElement(loginButtonLocator).click();
         return new OverviewPage(driver);
     }
+
     public void setFirstNameFieldLocator(String firstName) {
         driver.findElement(firstNameFieldLocator).sendKeys(firstName);
     }
+
     public void setLastNameFieldLocator(String lastName) {
         driver.findElement(lastNameFieldLocator).sendKeys(lastName);
     }
+
     public void setAddressFieldLocator(String address) {
         driver.findElement(addressFieldLocator).sendKeys(address);
     }
+
     public void setCityFieldLocator(String city) {
         driver.findElement(cityFieldLocator).sendKeys(city);
     }
+
     public void setStateFieldLocator(String state) {
         driver.findElement(stateFieldLocator).sendKeys(state);
     }
+
     public void setZipFieldLocator(String zip) {
         driver.findElement(zipFieldLocator).sendKeys(zip);
     }
+
     public void setPhoneFieldLocator(String phone) {
         driver.findElement(phoneFieldLocator).sendKeys(phone);
     }
+
     public void setSsnFieldLocator(String ssn) {
         driver.findElement(ssnFieldLocator).sendKeys(ssn);
     }
+
     public void setUsernameFieldLocator(String username) {
         driver.findElement(userNameFieldLocator).sendKeys(username);
     }
+
     public void setPasswordFieldLocator(String password) {
         driver.findElement(passwordFieldLocator).sendKeys(password);
     }
+
     public void setConfirmPasswordFieldLocator(String password) {
         driver.findElement(confirmPasswordFieldLocator).sendKeys(password);
     }
+
     public OverviewPage clickRegisterButtonLocator() {
         driver.findElement(registerButtonLocator).click();
         return new OverviewPage(driver);

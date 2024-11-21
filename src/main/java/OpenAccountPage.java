@@ -10,14 +10,17 @@ public class OpenAccountPage {
     private WebDriver driver;
     private By openAccountButtonLocator = By.cssSelector("input[value='Open New Account']");
     private By accountsOverviewLinkLocator = By.linkText("Accounts Overview");
+
     public OpenAccountPage(WebDriver driver) {
         this.driver = driver;
     }
+
     public void clickOpenAccountButton() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(1000); // Stop the execution for 1 second
         driver.findElement(openAccountButtonLocator).click();
     }
-    public OverviewPage getOverviewPage(){
+
+    public OverviewPage getOverviewPage() { //Direct to OverviewPage
         driver.findElement(accountsOverviewLinkLocator).click();
         return new OverviewPage(driver);
     }
